@@ -27,7 +27,7 @@ var dashboard = new ParseDashboard({
   "apps": [
     {
       "serverURL": "https://stellapos.herokuapp.com/parse",
-      "appId": "stellapos",
+      "appId": "stellaposid",
       "masterKey": "stellaposmaster",
       "appName": "stellapos"
     }
