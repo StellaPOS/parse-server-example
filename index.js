@@ -26,6 +26,18 @@ var api = new ParseServer({
 // If you wish you require them, you can set them as options in the initialization above:
 // javascriptKey, restAPIKey, dotNetKey, clientKey
 
+var dashboard = new ParseDashboard({
+  "apps": [
+    {
+      "serverURL": "https://localhost:27017/parse",
+      "appId": "stellapos",
+      "masterKey": "stellaposmaster",
+      "appName": "stellapos"
+    }
+  ],
+  "iconsFolder": "icons"
+});
+
 var app = express();
 
 // Serve static assets from the /public folder
@@ -45,6 +57,8 @@ app.get('/', function(req, res) {
 app.get('/test', function(req, res) {
   res.sendFile(path.join(__dirname, '/public/test.html'));
 });
+
+app.use('/dashboard', dashboard);
 
 var port = process.env.PORT || 1337;
 var httpServer = require('http').createServer(app);
