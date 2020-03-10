@@ -26,17 +26,18 @@ var api = new ParseServer({
 // If you wish you require them, you can set them as options in the initialization above:
 // javascriptKey, restAPIKey, dotNetKey, clientKey
 
+var options = { allowInsecureHTTP: false };
+
 var dashboard = new ParseDashboard({
   "apps": [
     {
-      "serverURL": "https://stellapos.herokuapp.com/parse",
+      "serverURL": "http://localhost:27017/parse",
       "appId": "stellapos",
       "masterKey": "stellaposmaster",
       "appName": "stellapos"
     }
-  ],
-  "iconsFolder": "icons"
-});
+  ]
+}, options );
 
 var app = express();
 
