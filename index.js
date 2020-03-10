@@ -17,7 +17,7 @@ var api = new ParseServer({
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
   appId: process.env.APP_ID || 'stellaposid',
   masterKey: process.env.MASTER_KEY || 'stellaposmaster', //Add your master key here. Keep it secret!
-  serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
+  serverURL: process.env.SERVER_URL || 'https://stellapos.herokuapp.com/parse',  // Don't forget to change to https if needed
   liveQuery: {
     classNames: ["Posts", "Comments"]
   }
@@ -32,8 +32,7 @@ var dashboard = new ParseDashboard({
       "masterKey": "stellaposmaster",
       "appName": "stellapos"
     }
-  ],
-  "trustProxy": 1
+  ]
 });
 
 var app = express();
@@ -45,6 +44,8 @@ app.use('/public', express.static(path.join(__dirname, '/public')));
 var mountPath = process.env.PARSE_MOUNT || '/parse';
 app.use(mountPath, api);
 
+app.use('/dashboard', dashboard);
+
 // Parse Server plays nicely with the rest of your web routes
 app.get('/', function(req, res) {
   res.status(200).send('I dream of being a website.  Please star the parse-server repo on GitHub!');
@@ -55,8 +56,6 @@ app.get('/', function(req, res) {
 app.get('/test', function(req, res) {
   res.sendFile(path.join(__dirname, '/public/test.html'));
 });
-
-app.use('/dashboard', dashboard);
 
 var port = process.env.PORT || 1337;
 var httpServer = require('http').createServer(app);
