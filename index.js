@@ -3,6 +3,7 @@
 
 var express = require('express');
 var ParseServer = require('parse-server').ParseServer;
+var ParseDashboard = require('parse-dashboard');
 var path = require('path');
 
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
@@ -40,6 +41,8 @@ var dashboard = new ParseDashboard({
 
 var app = express();
 
+app.use('/dashboard', dashboard);
+
 // Serve static assets from the /public folder
 //app.use('/public', express.static(path.join(__dirname, '/public')));
 
@@ -57,8 +60,6 @@ app.get('/', function(req, res) {
 app.get('/test', function(req, res) {
   res.sendFile(path.join(__dirname, '/public/test.html'));
 });
-
-app.use('/dashboard', dashboard);
 
 var port = process.env.PORT || 1337;
 var httpServer = require('http').createServer(app);
