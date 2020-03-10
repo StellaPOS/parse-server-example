@@ -17,23 +17,23 @@ var api = new ParseServer({
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
   appId: process.env.APP_ID || 'stellaposid',
   masterKey: process.env.MASTER_KEY || 'stellaposmaster', //Add your master key here. Keep it secret!
-  serverURL: process.env.SERVER_URL || 'https://stellapos.herokuapp.com/parse',  // Don't forget to change to https if needed
+  serverURL: process.env.SERVER_URL || 'http://stellapos.herokuapp.com/parse',  // Don't forget to change to https if needed
   liveQuery: {
     classNames: ["Posts", "Comments"]
   }
 });
 
-var dashboard = new ParseDashboard({
-  "allowInsecureHTTP": true,
-  "apps": [
-    {
-      "serverURL": "https://stellapos.herokuapp.com/parse",
-      "appId": "stellaposid",
-      "masterKey": "stellaposmaster",
-      "appName": "stellapos"
-    }
-  ]
-});
+// var dashboard = new ParseDashboard({
+//   "allowInsecureHTTP": true,
+//   "apps": [
+//     {
+//       "serverURL": "https://stellapos.herokuapp.com/parse",
+//       "appId": "stellaposid",
+//       "masterKey": "stellaposmaster",
+//       "appName": "stellapos"
+//     }
+//   ]
+// });
 
 var app = express();
 
@@ -44,7 +44,7 @@ app.use('/public', express.static(path.join(__dirname, '/public')));
 var mountPath = process.env.PARSE_MOUNT || '/parse';
 app.use(mountPath, api);
 
-app.use('/dashboard', dashboard);
+//app.use('/dashboard', dashboard);
 
 // Parse Server plays nicely with the rest of your web routes
 app.get('/', function(req, res) {
