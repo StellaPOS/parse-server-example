@@ -17,7 +17,7 @@ var api = new ParseServer({
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
   appId: process.env.APP_ID || 'stellapos',
   masterKey: process.env.MASTER_KEY || 'stellaposmaster', //Add your master key here. Keep it secret!
-  serverURL: process.env.SERVER_URL || 'https://localhost:27017/parse',  // Don't forget to change to https if needed
+  serverURL: process.env.SERVER_URL || 'https://stellapos.herokuapp.com/parse',  // Don't forget to change to https if needed
   liveQuery: {
     classNames: ["Posts", "Comments"] // List of classes to support for query subscriptions
   },
@@ -44,7 +44,7 @@ var app = express();
 app.use('/dashboard', dashboard);
 
 // Serve static assets from the /public folder
-//app.use('/public', express.static(path.join(__dirname, '/public')));
+app.use('/public', express.static(path.join(__dirname, '/public')));
 
 // Serve the Parse API on the /parse URL prefix
 var mountPath = process.env.PARSE_MOUNT || '/parse';
