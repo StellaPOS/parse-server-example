@@ -19,7 +19,17 @@ var api = new ParseServer({
   serverURL: process.env.SERVER_URL || 'https://stellapos.herokuapp.com/parse',  // Don't forget to change to https if needed
   liveQuery: {
     classNames: ["Posts", "Comments"] // List of classes to support for query subscriptions
-  }
+  },
+  push: {
+      'ios': {
+        token: {
+            key: AuthKey_U3V9YFJ5QY.p8, // P8 file only
+            keyId: 'U3V9YFJ5QY', // key ID
+            teamId: 'WMVNZYDS86' // The Team ID of your Apple Developer Account
+        },
+        production: false // set explicitly
+      }
+    }
 });
 // Client-keys like the javascript key or the .NET key are not necessary with parse-server
 // If you wish you require them, you can set them as options in the initialization above:
